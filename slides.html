@@ -34,8 +34,7 @@
     <link href="libs/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
     <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/lexis.css" type="text/css" />
-    <link rel="stylesheet" href="css/lexis-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="css/styles.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -64,12 +63,45 @@ class: title-slide, center, middle, inverse
 
 Written: October 03 2022
 
-Updated: April 14 2023
+Updated: April 15 2023
 
 .footer-small[.right[.fira[
 &lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;[Created using the "λέξις" theme](https://jhelvy.github.io/lexis/index.html#what-does-%CE%BB%CE%AD%CE%BE%CE%B9%CF%82-mean)
 ]]]
 
+---
+background-image: url(www/pdg-hex.png)
+background-position: 96% 4%
+background-size: 6%
+
+# Outline
+
+.leftcol[
+
+- Packages for importing data 
+
+- Importing data using the IDE 
+
+- Making import steps reproducible
+
+- `worksheets/import.Rmd`
+
+]
+
+--
+
+.rightcol[
+
+- Importing data from local 
+
+- Downloading data from the web
+
+- Importing data using parameters (`params`) 
+
+- Importing multiple data files 
+
+
+]
 
 ---
 background-image: url(www/pdg-hex.png)
@@ -114,14 +146,14 @@ background-size: 6%
 
 # Importing Data 
 
-#### Packages for importing data:
+### Packages for importing data:
 
 
-| File type                           | Package               |
-|-------------------------------------|-----------------------|
-| SAS (`.sas7bdat`)                   | `haven`               |
-| Excel (`.xlsx`, `.xls`)             | `readxl`, `openxlsx`  |
-| Plain Text (`.csv`, `.tsv`, `.txt`) | `readr`, `data.table` |
+| File type                           | Package                        |
+|-------------------------------------|--------------------------------|
+| SAS (`.sas7bdat`)                   | `haven`                        |
+| Excel (`.xlsx`, `.xls`)             | `readxl`, `openxlsx`           |
+| Plain Text (`.csv`, `.tsv`, `.txt`) | `readr`, `vroom`, `data.table` |
 
 
 ---
@@ -580,6 +612,67 @@ str(all_sas_data)
 #   .. ..- attr(*, "label")= chr "1985 population in millions"
 #   .. [list output truncated]
 ```
+
+]
+
+---
+background-image: url(www/pdg-hex.png)
+class: left, top
+background-position: 96% 4%
+background-size: 6%
+
+# Recap 
+
+.leftcol[
+
+.font120[Packages for importing common data files:]
+
+-   `haven`, `readxl`, `openxlsx`, `vroom`, or `data.table`
+
+.font120[Making import steps reproducible:]
+
+- Store in sequentially named script (i.e, `01-import.R`), in R Markdown chunk or R Markdown parameter
+
+]
+
+.rightcol[
+
+.font120[Use iteration to import/export multiple files:]
+
+```r
+# create vector of files paths
+data_filenames &lt;- list.files(
+            path = "path/to/data", 
+            full.names = TRUE)
+all_data &lt;- data_filenames |&gt; 
+    # give this vector names
+    purrr::set_names() |&gt; 
+    # use read_*() function all files
+    purrr::map(.x = , .f = read_*)
+```
+
+
+]
+
+---
+background-image: url(www/pdg-hex.png)
+class: left, top
+background-position: 96% 4%
+background-size: 6%
+
+# More resources
+
+.font120[
+
+- [Data import cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/data-import.pdf)
+
+- [Data import section of R for data science](https://r4ds.hadley.nz/data-import.html) 
+
+- [`readxl` package website](https://readxl.tidyverse.org/) (and [workflows](https://readxl.tidyverse.org/articles/readxl-workflows.html))
+
+- [`haven` package website](https://haven.tidyverse.org/)
+
+- [`readr` package website](https://readr.tidyverse.org/)
 
 ]
     </textarea>
