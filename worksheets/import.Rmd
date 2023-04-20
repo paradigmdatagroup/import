@@ -19,7 +19,8 @@ params:
 ---
 
 ```{r setup, include=FALSE}
-library(tidyverse)
+library(rmarkdown)
+library(knitr)
 library(haven)
 library(readxl)
 library(openxlsx)
